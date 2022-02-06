@@ -51,16 +51,13 @@ const EditUser = ({ users, updateUser }) => {
     }
 
     const data = {
-      id: currentUser.id,
       name,
       username,
       email,
       city,
     };
 
-    console.log(data);
-
-    updateUser(data);
+    updateUser(currentUser.id, data);
     toast.success("User updated successfully!!");
     history.push("/");
   };

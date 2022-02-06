@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
-import { addUser } from "../../redux/actions/userActions";
+import { addUser, updateUser } from "../../redux/actions/userActions";
+import { v4 as uuid } from "uuid";
 
-const AddUser = ({ users, addUser }) => {
+const AddUser = ({ users, addUser, updateUser }) => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -25,11 +26,14 @@ const AddUser = ({ users, addUser }) => {
       return toast.error("This email already exists!!");
     }
 
+    const userId = uuid();
+
     const data = {
-      id: users.length > 0 ? users[users.length - 1].id + 1 : 0,
+      id: parseInt(userId),
       email,
       username,
       name,
+      // city,
       address: {
         city: city,
       },
@@ -129,15 +133,15 @@ const AddUser = ({ users, addUser }) => {
                   </div>
 
                   <div className="form-group d-flex justify-content-end my-2">
+                    <button type="submit" className="btn btn-success">
+                      Submit
+                    </button>
                     <button
                       type="button"
-                      className="btn btn-outline-danger mr-4"
+                      className="btn btn-outline-danger ml-4"
                       onClick={() => history.push("/")}
                     >
                       cancel
-                    </button>
-                    <button type="submit" className="btn btn-success">
-                      submit
                     </button>
                   </div>
                 </form>
@@ -154,4 +158,4 @@ const mapStateToProps = (state) => ({
   users: state.users.users,
 });
 
-export default connect(mapStateToProps, { addUser })(AddUser);
+export default connect(mapStateToProps, { updateUser, addUser })(AddUser);
