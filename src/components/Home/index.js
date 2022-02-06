@@ -108,7 +108,10 @@ const Home = (props) => {
                               </tr>
                             ))
                           ) : (
-                            <tr>{!users && <SkeletonUsers />}</tr>
+                            <tr>
+                              Oops! No users users found, add a new user thanks
+                              😢
+                            </tr>
                           )}
                         </tbody>
                       </table>
